@@ -6,14 +6,16 @@ import android.widget.Adapter
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.restapiwithretrofit.api.GraphData
 import com.example.restapiwithretrofit.api.PostResponse
 import com.example.restapiwithretrofit.api.RetrofitClient
+import com.example.restapiwithretrofit.api.SensorData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    private val list = ArrayList<PostResponse>()
+    private val list = ArrayList<SensorData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,19 +26,19 @@ class MainActivity : AppCompatActivity() {
         rvPost.setHasFixedSize(true)
         rvPost.layoutManager = LinearLayoutManager(this)
 
-        RetrofitClient.instance.getPosts().enqueue(object : Callback<ArrayList<PostResponse>>{
+        RetrofitClient.instance.getPosts().enqueue(object : Callback<GraphData>{
             override fun onResponse(
-                call: Call<ArrayList<PostResponse>>,
-                response: Response<ArrayList<PostResponse>>
+                call: Call<GraphData>,
+                response: Response<GraphData>
             ) {
                 val responseCode = response.code().toString()
                 tvResponseCode.text = responseCode
-                response.body()?.let { list.addAll(it) }
+                response.body()?.let { list.addAll(it.data) }
                 val adapter = PostAdapter(list)
                 rvPost.adapter = adapter
             }
 
-            override fun onFailure(call: Call<ArrayList<PostResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<GraphData>, t: Throwable) {
                 print("FAILLLLLL")
             }
         })

@@ -6,15 +6,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.restapiwithretrofit.api.PostResponse
+import com.example.restapiwithretrofit.api.SensorData
 
 
-class PostAdapter(private val list: ArrayList<PostResponse>): RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
+class PostAdapter(private val list: ArrayList<SensorData>): RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
     inner class  PostViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        fun bind(postResponse: PostResponse){
+        fun bind(postResponse: SensorData){
             with(itemView){
                 val text = "id: ${postResponse.id}\n" +
-                        "text: ${postResponse.text}\n" +
-                        "title: ${postResponse.title}"
+                        "amonia: ${postResponse.amonia}\n" +
+                        "curah: ${postResponse.curah_hujan}"
                 val textView: TextView = findViewById(R.id.tvText) as TextView
                 textView.text = text
             }
