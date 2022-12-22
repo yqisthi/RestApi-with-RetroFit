@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
                 val responseCode = response.code().toString()
                 tvResponseCode.text = responseCode
                 response.body()?.let { list.addAll(it.data) }
-                val adapter = PostAdapter(list)
+                val adapter = PostAdapter(ArrayList(list.takeLast(5)))
                 rvPost.adapter = adapter
             }
 
